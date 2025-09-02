@@ -22,15 +22,15 @@ Add-Type -AssemblyName PresentationFramework, PresentationCore
 </Window>
 "@
 
-# Load XAML
+# ui stuff
 $reader = New-Object System.Xml.XmlNodeReader $xaml
 $window = [Windows.Markup.XamlReader]::Load($reader)
 
-# Get UI elements
+# ui stuff
 $face = $window.FindName("Face")
 $inputBox = $window.FindName("InputBox")
 
-# Memory file path (same folder as script)
+# memory stuff
 $memoryFile = "$PSScriptRoot\SmileGuyMemory.json"
 
 function LoadMemory {
@@ -60,13 +60,13 @@ function SaveMemory {
 
 $global:memory = LoadMemory
 
-# Your fixed rejection for "Lone"
+# memory stuff
 function IsNameRejected {
     param($name)
     return ($name -ieq "lone")
 }
 
-# Local LLM API call function
+# api stuff
 function Get-ChatCompletion {
     param(
         [string]$userMessage
@@ -92,7 +92,7 @@ function Get-ChatCompletion {
     }
 }
 
-# Handle user input
+# user stuff
 $inputBox.Add_KeyDown({
     if ($_.Key -eq 'Return') {
         $text = $inputBox.Text.Trim()
@@ -165,3 +165,4 @@ $window.Add_SourceInitialized({
 # Launch the app
 $window.Show()
 [System.Windows.Threading.Dispatcher]::Run()
+
